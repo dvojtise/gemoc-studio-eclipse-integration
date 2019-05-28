@@ -5,7 +5,7 @@
 [submodule "gemoc-studio-modeldebugging"]
 	path = gemoc-studio-modeldebugging
 	url = https://github.com/eclipse/gemoc-studio-modeldebugging.git
-	branch = master
+	branch = increase_swtbot_test_timeout
 [submodule "gemoc-studio-execution-ale"]
 	path = gemoc-studio-execution-ale
 	url = https://github.com/eclipse/gemoc-studio-execution-ale.git
