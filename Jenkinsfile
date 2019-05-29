@@ -87,7 +87,7 @@ pipeline {
 							}      
 						}
 				   	}
-				}
+				} // end of lock
 			}
 			post {
 				success {
@@ -98,7 +98,6 @@ pipeline {
 				}
 			}
 	 	}
-		} // end of lock
 		stage("Archive in Jenkins") {
 			steps {
 				echo "archive artifact"
