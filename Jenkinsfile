@@ -15,6 +15,7 @@ pipeline {
 		DOWNLOAD_FOLDER = "/home/data/httpd/download.eclipse.org/gemoc"
 	}
 	stages {
+		lock('myResource') {
 		stage('Prepare') {
 			steps {
 			
@@ -92,6 +93,7 @@ pipeline {
 				}
 			}
 	 	}
+		} // end of lock
 		stage("Archive in Jenkins") {
 			steps {
 				echo "archive artifact"
