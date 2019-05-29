@@ -15,11 +15,11 @@ pipeline {
 		DOWNLOAD_FOLDER = "/home/data/httpd/download.eclipse.org/gemoc"
 	}
 	stages {
-		lock('myResource') {
+		
 		stage('Prepare') {
 			steps {
-			
-			    echo 'Content of the workspace before Checkout'
+			  lock('myResource') {	
+				echo 'Content of the workspace before Checkout'
 				sh "ls -lsa"
 				// Wipe the workspace so we are building completely clean
   		  		deleteDir()
@@ -59,16 +59,17 @@ pipeline {
 	         				checkout gemocstudioexecutionmoccmlScm
 	         			}
 				}
-			    echo 'Content of the workspace after Checkout'
+			    	echo 'Content of the workspace after Checkout'
 				sh "ls -lsa"
 				sh "chmod 777 ./gemoc-studio/dev_support/jenkins/showGitBranches.sh"
-	      		sh "./gemoc-studio/dev_support/jenkins/showGitBranches.sh ."
-				
+	      			sh "./gemoc-studio/dev_support/jenkins/showGitBranches.sh ."
+			  } // end of lock	
 			}
 		}
 		stage('Build and verify') {
-	    	steps { script {
-				def studioVariant
+	    		steps { script {
+			   lock('myResource') {
+			    def studioVariant
 			    if(  env.JENKINS_URL.contains("https://hudson.eclipse.org/gemoc/")){
 			    	studioVariant = "Official build"
 				} else {
@@ -83,7 +84,7 @@ pipeline {
 						}
 					}      
 				}
-			}}
+			   }}}
 			post {
 				success {
 					junit '**/target/surefire-reports/TEST-*.xml' 
